@@ -2,6 +2,7 @@
 
 const otazky = [
     {
+        cislo: 1,
         otazka: 'Co je ikonická hračka z 80. let?',
         obrazek: 'obrazky/moncicak.jpg',
         moznosti: [
@@ -10,6 +11,7 @@ const otazky = [
         spravnaOdpoved: 'moznosti.indexOf("mončičák")'
     },
     {
+        cislo: 2,
         otazka: 'Jaké je Adriany nejoblíbenější ovoce?',
         obrazek: 'obrazky/ovoce.jpg',
         moznosti: [
@@ -18,6 +20,7 @@ const otazky = [
         spravnaOdpoved: 'moznosti.indexOf("meloun")'
     },
     {
+        cislo: 3,
         otazka: 'Pro absolvování kurzu je potřeba ...',
         obrazek: 'obrazky/pivo.jpg',
         moznosti: [
@@ -42,24 +45,48 @@ let otazka = document.querySelector('#otazka'); // <!--A sem už přijde samotn�
 let obsah = document.querySelector('.obsah');
 
 
-// vytvořím div pro obrázek k otázce
-let foto = document.createElement('div');
-foto.className = 'foto';
+// vyberu div pro obrázek
+let foto = document.querySelector('.foto');
 
-// vytvořím element pro jednotlivé odpovědi
-let moznosti = document.createElement('div');
-moznosti.id = 'moznosti';
+// vyberu ul pro jednotlivé odpovědi
+let odpovedi = document.querySelector('#odpovedi');
+
 
 // <!--A nakonci bude tady výsledek - nejdřív vidět není a poté ano. U otázek je to opačně.-->
 let vysledek = document.querySelector('.vysledek');
 let hodnoceni = document.querySelector('#hodnoceni');
 
 
-
-
 // Tato funkce se postará o vygenerování otázky
 // Zavoláme ji jednou na začátku a poté vždy po odpovězení
-function zobrazOtazku() {}
+function zobrazOtazku() {
+         
+    poradi.textContent = 'Otázka ' + otazky[0].cislo +'/' + otazky.length;
+    otazka.textContent = otazky[0].otazka;
+    
+    let obrazek = document.createElement('img');
+    obrazek.id = 'obrazek';
+    obrazek.src = otazky[0].obrazek;
+
+    foto.appendChild(obrazek);
+
+    // vytvořím virtuální li pro možnosti odpovědí
+    
+
+    for (i = 0; i < otazky[0].moznosti.length; i++) {
+
+        let odpoved = document.createElement('li');
+        odpoved.textContent = otazky[0].moznosti[i];
+
+        odpovedi.appendChild(odpoved);
+   }
+
+}
+
+zobrazOtazku();
+
+
+
 
 // Funkce se postará o obsluhu kliknutí na odpověď
 // Musíme ji navázat na kokrétní odpovědi každé otázky (to uděláme v rámci funkce zobrazOtazku())
