@@ -8,7 +8,7 @@ const otazky = [
         moznosti: [
             'kočičák', 'mončičák', 'opičák' 
         ],
-        spravnaOdpoved: 'moznosti.indexOf("mončičák")'
+        spravnaOdpoved: 'otazky[0].moznosti.indexOf("mončičák")'
     },
     {
         cislo: 2,
@@ -17,7 +17,7 @@ const otazky = [
         moznosti: [
             'kokos', 'jahoda', 'meloun', 'ani jedno'
         ],
-        spravnaOdpoved: 'moznosti.indexOf("meloun")'
+        spravnaOdpoved: 'otazky[1].moznosti.indexOf("meloun")'
     },
     {
         cislo: 3,
@@ -26,13 +26,11 @@ const otazky = [
         moznosti: [
             'Umět JavaScript', 'Chodit po kurzu do hospody'
         ],
-        spravnaOdpoved: 'moznosti.indexOf("Umět JavaScript")'
+        spravnaOdpoved: 'otazky[2].moznosti.indexOf("Umět JavaScript")'
     }
 ];
 
-// Dále budeš potřebovat další proměnné - jaké?
-
-// bílá plocha uprostřed stránky, obalující div
+// obalující div celého kvízu
 let kviz = document.querySelector('.kviz');
 
 // pořadí otázky
@@ -48,6 +46,9 @@ let obsah = document.querySelector('.obsah');
 // vyberu div pro obrázek
 let foto = document.querySelector('.foto');
 
+// vytvořím img element, budu přiřazovat src
+let obrazek = document.createElement('img');
+
 // vyberu ul pro jednotlivé odpovědi
 let odpovedi = document.querySelector('#odpovedi');
 
@@ -57,42 +58,50 @@ let vysledek = document.querySelector('.vysledek');
 let hodnoceni = document.querySelector('#hodnoceni');
 
 
+
 // Tato funkce se postará o vygenerování otázky
 // Zavoláme ji jednou na začátku a poté vždy po odpovězení
-function zobrazOtazku() {
-         
-    poradi.textContent = 'Otázka ' + otazky[0].cislo +'/' + otazky.length;
-    otazka.textContent = otazky[0].otazka;
-    
-    let obrazek = document.createElement('img');
-    obrazek.id = 'obrazek';
-    obrazek.src = otazky[0].obrazek;
 
+function zobrazOtazku(x) {  
+    
+    poradi.textContent = 'Otázka ' + otazky[x].cislo +'/' + otazky.length;
+    otazka.textContent = otazky[x].otazka;
+    
+    obrazek.id = 'obrazek';
+    obrazek.src = otazky[x].obrazek;
     foto.appendChild(obrazek);
 
-    // vytvořím virtuální li pro možnosti odpovědí
+    for (let i = 0; i < otazky[x].moznosti.length; i++) {
     
-
-    for (i = 0; i < otazky[0].moznosti.length; i++) {
-
         let odpoved = document.createElement('li');
-        odpoved.textContent = otazky[0].moznosti[i];
+        odpoved.dataset.odpoved = i;
+        odpoved.textContent = otazky[x].moznosti[i];
 
         odpovedi.appendChild(odpoved);
-   }
+
+        odpoved.addEventListener('click', function() {
+            console.log('test');
+        });
+        
+    }
 
 }
 
-zobrazOtazku();
-
+for (let x = 0; x < otazky.length; x++) {
+    zobrazOtazku(x);
+    break;
+    
+};
 
 
 
 // Funkce se postará o obsluhu kliknutí na odpověď
 // Musíme ji navázat na kokrétní odpovědi každé otázky (to uděláme v rámci funkce zobrazOtazku())
-function klikNaOdpoved() {}
+function klikNaOdpoved() {
 
-// Když už mám odpovězeno na vše (řídí se velikosí objektu otazky na řádku 3), tak mohu zobrazi výsledky
+};
+
+// Když už mám odpovězeno na vše (řídí se velikosí objektu otazky na řádku 3), tak mohu zobrazit výsledky
 // Vypočítám skóre a nageneruje nové elementy do HTML
 // Touto funkcí končí můj program (budu se rozhodovat, zda ji zavolat v rámci klikNaOdpoved())
 function zobrazVyhodnoceni() {}
