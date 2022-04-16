@@ -1,4 +1,4 @@
-// Nejdříve si vytvoř objekt, který bude držet voje super otázky :-)
+// Nejdříve si vytvoř objekt, který bude držet tvoje super otázky :-)
 
 const otazky = [
     {
@@ -8,16 +8,16 @@ const otazky = [
         moznosti: [
             'kočičák', 'mončičák', 'opičák' 
         ],
-        spravnaOdpoved: 'otazky[0].moznosti.indexOf("mončičák")'
+        spravnaOdpoved: 1
     },
     {
         cislo: 2,
-        otazka: 'Jaké je Adriany nejoblíbenější ovoce?',
+        otazka: 'Jaké je Matějovo nejoblíbenější ovoce?',
         obrazek: 'obrazky/ovoce.jpg',
         moznosti: [
             'kokos', 'jahoda', 'meloun', 'ani jedno'
         ],
-        spravnaOdpoved: 'otazky[1].moznosti.indexOf("meloun")'
+        spravnaOdpoved: 2
     },
     {
         cislo: 3,
@@ -26,9 +26,11 @@ const otazky = [
         moznosti: [
             'Umět JavaScript', 'Chodit po kurzu do hospody'
         ],
-        spravnaOdpoved: 'otazky[2].moznosti.indexOf("Umět JavaScript")'
+        spravnaOdpoved: 0
     }
 ];
+
+let poleOdpovedi = [];
 
 // obalující div celého kvízu
 let kviz = document.querySelector('.kviz');
@@ -42,7 +44,6 @@ let otazka = document.querySelector('#otazka'); // <!--A sem už přijde samotn�
 // obalujíci div, uvnitř obrázek + možnosti odpovědí
 let obsah = document.querySelector('.obsah');
 
-
 // vyberu div pro obrázek
 let foto = document.querySelector('.foto');
 
@@ -52,11 +53,9 @@ let obrazek = document.createElement('img');
 // vyberu ul pro jednotlivé odpovědi
 let odpovedi = document.querySelector('#odpovedi');
 
-
 // <!--A nakonci bude tady výsledek - nejdřív vidět není a poté ano. U otázek je to opačně.-->
 let vysledek = document.querySelector('.vysledek');
 let hodnoceni = document.querySelector('#hodnoceni');
-
 
 
 // Tato funkce se postará o vygenerování otázky
@@ -74,31 +73,39 @@ function zobrazOtazku(x) {
     for (let i = 0; i < otazky[x].moznosti.length; i++) {
     
         let odpoved = document.createElement('li');
-        odpoved.dataset.odpoved = i;
+
+        // odpoved.dataset.odpoved = i;
         odpoved.textContent = otazky[x].moznosti[i];
 
         odpovedi.appendChild(odpoved);
 
         odpoved.addEventListener('click', function() {
             console.log('test');
+            kviz.removeChild(obsah);
+            kviz.removeChild(poradi);
+            kviz.removeChild(otazka);  
         });
-        
     }
+
 
 }
 
-for (let x = 0; x < otazky.length; x++) {
-    zobrazOtazku(x);
-    break;
-    
-};
+zobrazOtazku(0);
+
+
+
+
+// for (let x = 0; x < otazky.length; x++) {
+//     zobrazOtazku(x);
+//     break;
+// };
 
 
 
 // Funkce se postará o obsluhu kliknutí na odpověď
 // Musíme ji navázat na kokrétní odpovědi každé otázky (to uděláme v rámci funkce zobrazOtazku())
 function klikNaOdpoved() {
-
+    console.log('klik');
 };
 
 // Když už mám odpovězeno na vše (řídí se velikosí objektu otazky na řádku 3), tak mohu zobrazit výsledky
