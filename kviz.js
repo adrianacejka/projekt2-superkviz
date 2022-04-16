@@ -1,5 +1,3 @@
-// Nejdříve si vytvoř objekt, který bude držet tvoje super otázky :-)
-
 const otazky = [
     {
         cislo: 1,
@@ -34,42 +32,30 @@ let poleOdpovedi = [];
 
 // obalující div celého kvízu
 let kviz = document.querySelector('.kviz');
-
 // pořadí otázky
-let poradi = document.querySelector('#poradi'); // <!--Sem můžeš zapsat pořadí otázky. opět pomocí JS-->
-
+let poradi = document.querySelector('#poradi');
 // znění otázky
-let otazka = document.querySelector('#otazka'); // <!--A sem už přijde samotná otázka-->
-
+let otazka = document.querySelector('#otazka');
 // obalujíci div, uvnitř obrázek + možnosti odpovědí
 let obsah = document.querySelector('.obsah');
-
 // vyberu div pro obrázek
 let foto = document.querySelector('.foto');
-
 // vytvořím img element, budu přiřazovat src
 let obrazek = document.createElement('img');
-
 // vyberu ul pro jednotlivé odpovědi
 let odpovedi = document.querySelector('#odpovedi');
-
 // <!--A nakonci bude tady výsledek - nejdřív vidět není a poté ano. U otázek je to opačně.-->
 let vysledek = document.querySelector('.vysledek');
 let hodnoceni = document.querySelector('#hodnoceni');
-
 let vybranaOdpoved;
 let a = 1;
-
 let odpoved;
-
-
-
-zobrazOtazku();
 
 
 
 // Tato funkce se postará o vygenerování otázky
 // Zavoláme ji jednou na začátku a poté vždy po odpovězení
+
 function zobrazOtazku(currentQuestionIndex = 0) {  
     poradi.textContent = 'Otázka ' + otazky[currentQuestionIndex].cislo +'/' + otazky.length;
     otazka.textContent = otazky[currentQuestionIndex].otazka;
@@ -86,43 +72,46 @@ function zobrazOtazku(currentQuestionIndex = 0) {
         odpoved.addEventListener('click', klikNaOdpoved);
         
     });
-
-
 }
 
 
 // Funkce se postará o obsluhu kliknutí na odpověď
 // Musíme ji navázat na kokrétní odpovědi každé otázky (to uděláme v rámci funkce zobrazOtazku())
+
 function klikNaOdpoved(udalost) {
     vybranaOdpoved = udalost.target.dataset.odpoved;
     console.log(udalost.target.dataset.odpoved);
+
     // pošle označenou odpověď do pole odpovědí
     poleOdpovedi.push(vybranaOdpoved);
     console.log(poleOdpovedi); 
-    // vymazat odpovedi
-    
+
+    // vymazat předešlé odpovedi
     let odpovedi = document.querySelectorAll('li');
     console.log(odpovedi);
     odpovedi.forEach(function(odpoved) {
-
         odpoved.classList.add('vybrane');
     })    
-    
+
     // vygenerovat novou otázkou
-    
-    zobrazOtazku(a++);
-    
-    
+    if (a < otazky.length) {
+        zobrazOtazku(a++);
+    } else {
+        zobrazVyhodnoceni();
+    }
 }
 
 
 // Když už mám odpovězeno na vše (řídí se velikosí objektu otazky na řádku 3), tak mohu zobrazit výsledky
 // Vypočítám skóre a nageneruje nové elementy do HTML
 // Touto funkcí končí můj program (budu se rozhodovat, zda ji zavolat v rámci klikNaOdpoved())
-function zobrazVyhodnoceni() {}
+function zobrazVyhodnoceni() {
+    console.log('budeme vyhodnocovat...');
+}
 
 
 
+zobrazOtazku();
 
 
 
