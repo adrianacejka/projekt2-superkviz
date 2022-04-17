@@ -144,7 +144,11 @@ h1 {
 }
 
 .vysledek h2 {
-  margin-top: 0;
-  font-size: 36px;
-  color: var(--cervena);
+	margin-top: 0;
+	font-size: 36px;
+	color: var(--cervena);
+}
+
+.vybrane {
+	display: none;
 }
