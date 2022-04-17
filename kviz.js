@@ -52,10 +52,8 @@ let a = 1;
 let odpoved;
 
 
-
 // Tato funkce se postará o vygenerování otázky
 // Zavoláme ji jednou na začátku a poté vždy po odpovězení
-
 function zobrazOtazku(currentQuestionIndex = 0) {  
     poradi.textContent = 'Otázka ' + otazky[currentQuestionIndex].cislo +'/' + otazky.length;
     otazka.textContent = otazky[currentQuestionIndex].otazka;
@@ -69,15 +67,13 @@ function zobrazOtazku(currentQuestionIndex = 0) {
         odpoved.textContent = otazky[currentQuestionIndex].moznosti[idx];
         odpoved.dataset.odpoved = idx;
         odpovedi.appendChild(odpoved);
-        odpoved.addEventListener('click', klikNaOdpoved);
-        
+        odpoved.addEventListener('click', klikNaOdpoved);   
     });
 }
 
 
 // Funkce se postará o obsluhu kliknutí na odpověď
 // Musíme ji navázat na kokrétní odpovědi každé otázky (to uděláme v rámci funkce zobrazOtazku())
-
 function klikNaOdpoved(udalost) {
     vybranaOdpoved = udalost.target.dataset.odpoved;
     console.log(udalost.target.dataset.odpoved);
@@ -98,7 +94,7 @@ function klikNaOdpoved(udalost) {
         zobrazOtazku(a++);
     } else {
         zobrazVyhodnoceni();
-    }
+    };
 }
 
 
@@ -106,11 +102,10 @@ function klikNaOdpoved(udalost) {
 // Vypočítám skóre a nageneruje nové elementy do HTML
 // Touto funkcí končí můj program (budu se rozhodovat, zda ji zavolat v rámci klikNaOdpoved())
 function zobrazVyhodnoceni() {
-    console.log('budeme vyhodnocovat...');
+    console.log('Budeme vyhodnocovat...');
 }
 
-
-
+// spuštění programu
 zobrazOtazku();
 
 
